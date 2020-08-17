@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts/font-awesome.min.css?' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/styles.min.css' %}">
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+{% block content %}
+<h1>Dashboard</h1>
+<p>Welcome to your dashboard.</p>
+<div class="content-section">
+<div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.profilePicture.url }}" width="300" alt="profile pics">
+    <div class="media-body">
+        <h2 class="account-heading">{{ user.first_name }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+    <p>Welcome to your dashboard. You can <a href="{% url "edit" %}">edit
+your profile</a> or <a href="{% url "password_change" %}">change your
+password</a>.</p>
+{% endblock %}
+</body>
+</html>

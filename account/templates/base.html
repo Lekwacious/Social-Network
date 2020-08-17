@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/styles.min.css' %}">
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/stylereg.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+    <div id="header">
+        <span class="logo">Bookmarks</span>
+        {% if request.user.is_authenticated %}
+        <ul class="menu">
+        <li {% if section == "dashboard" %}class="selected"{% endif %}>
+        <a href="{% url "dashboard" %}">My dashboard</a>
+        </li>
+        <li {% if section == "images" %}class="selected"{% endif %}>
+        <a href="#">Images</a>
+        </li>
+        <li {% if section == "people" %}class="selected"{% endif %}>
+        <a href="#">People</a>
+        </li>
+        <li {% if section == "profile" %}class="selected"{% endif %}>
+        <a href="{% url 'profile' %}">Profile</a>
+        </li>
+        </ul>
+        {% endif %}
+        <span class="user">
+        {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }},
+        <a class="login" href="{% url "logout" %}">Logout</a>
+        {% else %}
+        <a class="login" href="{% url "login" %}">Login</a>
+            <a class="login" href="{% url "register" %}">Register</a>
+        {% endif %}
+        </span>
+    </div>
+
+{% if messages %}
+<ul class="messages">
+{% for message in messages %}
+<li class="{{ message.tags }}">
+{{ message|safe }}
+<a href="#" class="close">x</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
